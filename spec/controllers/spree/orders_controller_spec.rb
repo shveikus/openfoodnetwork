@@ -134,7 +134,7 @@ describe Spree::OrdersController, type: :controller do
         it "does not complete the payment" do
           get :show, params: { id: order.number, payment_intent: payment_intent }
 
-          expect(response).to be_success
+          expect(response.status).to eq 200
           payment.reload
           expect(payment.cvv_response_message).to eq("https://stripe.com/redirect")
           expect(payment.state).to eq("pending")
